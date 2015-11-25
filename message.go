@@ -1,7 +1,12 @@
 package main
 
 type Message struct {
-	Sender   User   `json:"sender"`
-	Receiver []User `json:"receiver"`
-	Body     string `json:"body"`
+	Sender User `json:"sender"`
+	// Thinking `receiver` might not be necessary with websockets.
+	//Receiver []User `json:"receiver"`
+	Body string `json:"body"`
+}
+
+func (msg *Message) String() string {
+	return msg.Sender + " says " + msg.Body
 }
