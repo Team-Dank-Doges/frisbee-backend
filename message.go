@@ -8,5 +8,5 @@ type Message struct {
 }
 
 func (msg *Message) String() string {
-	return msg.Sender + " says " + msg.Body
+	return msg.Sender.String() + " says " + msg.Body
 }

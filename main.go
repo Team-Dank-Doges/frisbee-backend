@@ -1,24 +1,19 @@
 package main
 
 import (
-	"io"
+	"log"
 	"net/http"
 
-	"golang.org/x/net/websocket"
+	"github.com/golang-samples/websocket/websocket-chat/src/chat"
 )
 
 func main() {
-	ExampleHandler()
-}
+	log.SetFlags(log.Lshortfile)
 
-func EchoServer(ws *websocket.Conn) {
-	io.Copy(ws, ws)
-}
+	server := chat.NewServer("/entry")
+	go server.Listen()
 
-func ExampleHandler() {
-	http.Handle("/echo", websocket.Handler(EchoServer))
-	err := http.ListenAndServe(":12345", nil)
-	if err != nil {
-		panic("ListenAndServe: " + err.Error())
-	}
+	http.Handle("/", http.FileServer(http.Dir("webroot")))
+
+	log.Fatal(http.ListenAndServe(":7123", nil))
 }

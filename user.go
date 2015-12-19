@@ -7,3 +7,7 @@ type User struct {
 	Email  string `json:"email"`
 	Socket *websocket.Conn
 }
+
+func (u *User) String() string {
+	return u.Name + " <" + u.Email + ">"
+}
